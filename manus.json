@@ -1,0 +1,17 @@
+{
+  "name": "oskinsights",
+  "subdomain": "oskinsights",
+  "type": "web-db-user",
+  "build": {
+    "command": "pnpm run build",
+    "outputDir": "dist"
+  },
+  "start": {
+    "command": "node dist/index.js",
+    "port": 3000
+  },
+  "env": {
+    "NODE_ENV": "production",
+    "DATABASE_URL": "mysql://36ExQAj7aBpiWrH.root:2nU36nZpDSxh7RNZ4V0w@gateway03.us-east-1.prod.aws.tidbcloud.com:4000/33ZKwMqRLwJj32NQ7UM9ou?ssl={\"rejectUnauthorized\":true}"
+  }
+}

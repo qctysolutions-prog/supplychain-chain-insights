@@ -1,0 +1,48 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1768590245402,
+      "tag": "0000_regular_moon_knight",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1768590318701,
+      "tag": "0001_harsh_blockbuster",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1768597052343,
+      "tag": "0002_striped_cobalt_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1770677400377,
+      "tag": "0003_flashy_pestilence",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1770864801431,
+      "tag": "0004_left_bloodstorm",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1773132948760,
+      "tag": "0005_crazy_tempest",
+      "breakpoints": true
+    }
+  ]
+}
