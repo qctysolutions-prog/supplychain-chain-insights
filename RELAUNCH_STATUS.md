@@ -14,7 +14,8 @@ The repository has been relaunched for the active account **caoqianwudi@gmail.co
 | Local production build | Verified | `pnpm install`, `pnpm run build`, and local `pnpm start` succeeded. |
 | Local type check | Verified | `pnpm run check` succeeded. |
 | Automated tests | Partially verified | The app-level build is valid; the existing test suite contains database-dependent failures unless a reachable test database is configured. |
-| Public deployment | Pending | Requires a hosting target with production environment variables and DNS records for `www.ocuosh.com`. |
+| Public deployment | Pending | `www.ocuosh.com` currently resolves to Manus but shows an expired-membership page tied to the old owner; a fresh Manus-hosted deployment must be published under `caoqianwudi@gmail.com`. |
+| Current DNS | Verified | `www.ocuosh.com` is a CNAME to `ocuosh.manus.space`, with IONOS nameservers active. |
 | Weekly news job | Pending production prerequisites | The code includes `pnpm update:news`, but the production database and authenticated Git push path must be available to the scheduled runtime. |
 
 ## Production Hosting Requirements
@@ -48,11 +49,13 @@ pnpm db:push
 
 ## Custom Domain Requirements
 
-The Manus custom-domain documentation states that custom-domain setup is completed by publishing the web app to the desired domain and then adding the DNS records provided by the platform. The DNS record is usually an `A` record or `CNAME`; for a `www` subdomain, the help center notes that an additional record may need to be added manually and existing conflicting `A` records should be removed.
+The active custom domain is already pointed from IONOS toward Manus infrastructure. On 2026-06-04 CDT, DNS showed `www.ocuosh.com -> ocuosh.manus.space`, and the browser showed a Manus Space message saying the author's membership has expired. This means the domain is not blocked by basic DNS ownership; the blocker is that the existing Manus custom-domain binding appears to belong to the sunset/expired account.
+
+The Manus custom-domain documentation states that custom-domain setup is completed by publishing the web app to the desired domain and then adding the DNS records provided by the platform. The DNS record is usually an `A` record or `CNAME`; for a `www` subdomain, IONOS supports adding a CNAME for the `www` host and pointing it to the provider-assigned hostname.
 
 | Domain | Intended behavior | Required action |
 |---|---|---|
-| `www.ocuosh.com` | Primary app URL | Add the provider-supplied DNS record for the deployed app, usually `CNAME www -> <deployment-hostname>`. |
+| `www.ocuosh.com` | Primary app URL | Currently `CNAME www -> ocuosh.manus.space`; keep this only if the new Manus deployment can claim that target, otherwise replace it with the new Manus-provided hostname. |
 | `ocuosh.com` | Optional redirect | Configure the registrar or host to redirect the apex domain to `https://www.ocuosh.com`. |
 | HTTPS | Required | Let the hosting platform issue the automatic SSL/TLS certificate after DNS resolves. |
 
@@ -79,7 +82,7 @@ A simple scheduled Manus task is suitable for a low-frequency weekly editorial w
 |---|---|---|
 | Provision production MySQL database | User/host | Pending |
 | Configure production environment variables | User/host | Pending |
-| Deploy latest `main` branch | Agent or host | Pending |
-| Configure DNS for `www.ocuosh.com` | User/domain registrar | Pending |
+| Deploy latest `main` branch | Agent or host | Pending; recommended target is Manus-hosted deployment under `caoqianwudi@gmail.com` |
+| Configure DNS for `www.ocuosh.com` | User/domain registrar | Partially complete; IONOS already points `www` at `ocuosh.manus.space`, but the new Manus deployment must bind or replace this target |
 | Verify live site and SSL | Agent | Pending after DNS/deploy |
 | Restore weekly schedule | Agent | Pending after production database and Git write credentials are available to the scheduled runtime |
