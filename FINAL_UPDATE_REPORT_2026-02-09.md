@@ -5,7 +5,7 @@
 
 ## Executive Summary
 
-The automated news update pipeline has been successfully executed for the **Mobility & Auto Supply Chain Brief**. The website at **https://oskinsights.manus.space** is now live with 30 fresh articles covering all 6 supply chain categories, all published within the last 14 days.
+The automated news update pipeline has been successfully executed for the **Mobility & Auto Supply Chain Brief**. The website at **https://www.ocuosh.com** is now live with 30 fresh articles covering all 6 supply chain categories, all published within the last 14 days.
 
 ---
 
@@ -97,7 +97,7 @@ All categories meet the minimum requirement of 4 articles:
 
 ## Git Repository Status
 
-- **Repository**: https://github.com/qiannathancao/mobility-supply-chain-brief
+- **Repository**: https://github.com/qctysolutions-prog/supplychain-chain-insights.git
 - **Branch**: main
 - **Commit Message**: "Update news database with 30 fresh articles (Feb 9, 2026)"
 - **Push Status**: ✅ Successfully pushed to origin
@@ -106,7 +106,7 @@ All categories meet the minimum requirement of 4 articles:
 
 ## Website Deployment
 
-- **URL**: https://oskinsights.manus.space
+- **URL**: https://www.ocuosh.com
 - **Status**: ✅ LIVE
 - **Deployment Method**: Automatic via Manus platform
 - **Content Verification**: ✅ All 30 articles visible
@@ -175,8 +175,8 @@ All categories meet the minimum requirement of 4 articles:
 
 ✅ **14-Day Requirement**: All articles published between Jan 27 - Feb 9, 2026  
 ✅ **Minimum Articles**: 5 per category (exceeds minimum of 4)  
-✅ **Repository Format**: Adheres to https://github.com/qiannathancao/mobility-supply-chain-brief.git structure  
-✅ **Public URL**: Live at https://oskinsights.manus.space  
+✅ **Repository Format**: Adheres to https://github.com/qctysolutions-prog/supplychain-chain-insights.git structure  
+✅ **Public URL**: Live at https://www.ocuosh.com  
 ✅ **Documentation**: Complete update history maintained  
 ✅ **Git Version Control**: All changes committed and pushed  
 
@@ -184,7 +184,7 @@ All categories meet the minimum requirement of 4 articles:
 
 ## Conclusion
 
-The automated news update pipeline has been successfully executed. The Mobility & Auto Supply Chain Brief website is now live with 30 fresh, relevant articles covering all critical supply chain topics for the automotive industry. All articles are within the 14-day freshness requirement, and the website is fully functional at https://oskinsights.manus.space.
+The automated news update pipeline has been successfully executed. The Mobility & Auto Supply Chain Brief website is now live with 30 fresh, relevant articles covering all critical supply chain topics for the automotive industry. All articles are within the 14-day freshness requirement, and the website is fully functional at https://www.ocuosh.com.
 
 **Pipeline Status**: ✅ **COMPLETE**
 

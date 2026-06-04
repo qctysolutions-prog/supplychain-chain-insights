@@ -19,7 +19,7 @@ The automation system handles the complete news update workflow without manual i
 ## 📁 System Architecture
 
 ```
-mobility-supply-chain-brief/
+supplychain-chain-insights/
 ├── scripts/
 │   ├── automated-news-update.mjs    # Main automation script
 │   └── README.md                     # Script documentation
@@ -65,7 +65,7 @@ Run the update pipeline manually:
 
 ```bash
 # Option 1: Direct execution
-cd /home/ubuntu/mobility-supply-chain-brief
+cd /home/ubuntu/supplychain-chain-insights
 node scripts/automated-news-update.mjs
 
 # Option 2: Via npm script
@@ -341,13 +341,13 @@ await notifyOwner({
 
 ### Publishing
 
-**Auto-publish to oskinsights.manus.space:**
+**Auto-publish to www.ocuosh.com:**
 
 The scheduled task should trigger:
 1. Database update
 2. Documentation generation
 3. Git commit/push
-4. Automatic deployment to oskinsights.manus.space
+4. Automatic deployment to www.ocuosh.com
 
 ---
 

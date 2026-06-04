@@ -1,42 +1,51 @@
-# Deployment Instructions for oskinsights.manus.space
+# Deployment Instructions for www.ocuosh.com
 
-## Database Update
+## Relaunch Target
 
-The SQL file `update_news.sql` contains all 24 verified articles ready to be inserted into the database.
+The active relaunch target for this project is **https://www.ocuosh.com**. The active operating account is **caoqianwudi@gmail.com** and the GitHub repository is **https://github.com/qctysolutions-prog/supplychain-chain-insights.git**.
 
-To update the database, run:
-```sql
--- Execute the SQL file in your TiDB Cloud console or via mysql client
-source update_news.sql;
+## Required Environment Variables
+
+Do not commit production secrets to this repository. Configure the following values in the hosting provider environment:
+
+```env
+NODE_ENV=production
+PORT=3000
+DATABASE_URL=<production MySQL connection string>
+JWT_SECRET=<random 32+ character secret>
+ADMIN_PASSWORD=<admin password>
+BUILT_IN_FORGE_API_URL=<OpenAI-compatible API base URL, for example https://api.deepseek.com>
+BUILT_IN_FORGE_API_KEY=<LLM API key>
+PUBLIC_BASE_URL=https://www.ocuosh.com
 ```
 
-Or use the mysql command:
+## Build and Start
+
 ```bash
-mysql --host gateway03.us-east-1.prod.aws.tidbcloud.com \
-      --port 4000 \
-      --user 36ExQAj7aBpiWrH.root \
-      --database 33ZKwMqRLwJj32NQ7UM9ou \
-      --ssl-mode=REQUIRED \
-      -p < update_news.sql
+pnpm install --frozen-lockfile
+pnpm run build
+pnpm start
 ```
 
-## Deployment to oskinsights.manus.space
+## Database Initialization
 
-The project is built and ready to deploy. The `dist` folder contains:
-- `dist/public/` - Frontend assets
-- `dist/index.js` - Backend server
+After provisioning the production MySQL database, run the migration command once with `DATABASE_URL` set:
 
-To deploy to oskinsights.manus.space, use the Manus deployment interface or configure the custom domain in your Manus project settings.
+```bash
+pnpm db:push
+```
 
-## Verified Articles Summary
+If seed data is required, run the specific seed/import script only after confirming it points to the new production database via `DATABASE_URL`.
 
-- Total: 24 articles
-- Date range: Jan 5 - Jan 19, 2026
-- All URLs verified and accessible
-- 4 articles per category:
-  - Tariff Regulations & Trade Policies
-  - Logistics and Transportation
-  - Materials Pricing
-  - Supply Chain Risk Management
-  - Supplier Relationship Management
-  - Sustainability and Green Supply Chain
+## Custom Domain
+
+Configure the hosting provider to serve the application at **www.ocuosh.com**, then create the DNS record required by that provider, typically a `CNAME` from `www` to the provider-assigned deployment hostname. If the apex domain `ocuosh.com` should also resolve, configure an apex redirect to `https://www.ocuosh.com`.
+
+## Verification Checklist
+
+1. The site loads at `https://www.ocuosh.com`.
+2. The subscriber access page matches the reference layout.
+3. Authorized email access works against the new database.
+4. Admin login works with the new `ADMIN_PASSWORD`.
+5. News, indices, aluminum pricing, and chat features load without server errors.
+6. The weekly news update job uses the new deployment URL and new database.

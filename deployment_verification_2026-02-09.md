@@ -2,7 +2,7 @@
 
 ## Website Status: ✅ LIVE
 
-**URL:** https://oskinsights.manus.space
+**URL:** https://www.ocuosh.com
 
 **Date Range Displayed:** Jan 27, 2026 - Feb 9, 2026 (Last 14 days)
 
@@ -102,7 +102,7 @@ The automated news update pipeline has been successfully executed:
 
 - ✅ Database updated with fresh articles (all within 14-day requirement)
 - ✅ All 6 categories have sufficient articles (4+ per category)
-- ✅ Website is live at https://oskinsights.manus.space
+- ✅ Website is live at https://www.ocuosh.com
 - ✅ All features and content verified working
 - ✅ Documentation generated and committed to repository
 

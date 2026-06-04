@@ -1,7 +1,7 @@
 # Deployment Verification - February 16, 2026
 
 ## Website Status
-- **URL:** https://oskinsights.manus.space
+- **URL:** https://www.ocuosh.com
 - **Status:** ✅ Live and accessible
 - **Date Range:** Feb 3, 2026 - Feb 16, 2026 (Last 14 days)
 
@@ -47,7 +47,7 @@
 6. ✅ Changes committed to Git repository
 
 ## Deployment Method
-The website appears to use automatic deployment from the database. When articles are added to or removed from the TiDB database, the website at https://oskinsights.manus.space automatically reflects these changes without requiring a manual build/deploy step.
+The website appears to use automatic deployment from the database. When articles are added to or removed from the TiDB database, the website at https://www.ocuosh.com automatically reflects these changes without requiring a manual build/deploy step.
 
 ## Verification Date
 February 16, 2026 at 08:07 UTC

@@ -148,7 +148,7 @@ I can create a script that automatically:
 ## 📂 Suggested Directory Structure
 
 ```
-mobility-supply-chain-brief/
+supplychain-chain-insights/
 ├── docs/
 │   ├── update-history/
 │   │   ├── UPDATE_SUMMARY_JAN10_2026.md

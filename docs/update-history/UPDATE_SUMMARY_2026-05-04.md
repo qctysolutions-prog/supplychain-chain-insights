@@ -78,7 +78,7 @@ _No articles removed_
 3. ✅ Date range: April 15 – May 2, 2026 (within 14-day window)
 4. ✅ CHANGELOG.md updated
 5. ✅ Changes committed and pushed to Git
-6. ✅ Website live at https://oskinsights.manus.space
+6. ✅ Website live at https://www.ocuosh.com
 
 ---
 

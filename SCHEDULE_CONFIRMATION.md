@@ -177,7 +177,7 @@ Completely removes the automated task.
 - `1` - Day of week (Monday, 0=Sunday)
 
 ### Database:
-- Location: `/home/ubuntu/mobility-supply-chain-brief`
+- Location: `/home/ubuntu/supplychain-chain-insights`
 - Table: `news_articles`
 - ORM: Drizzle
 - Database: MySQL

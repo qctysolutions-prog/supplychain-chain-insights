@@ -157,7 +157,7 @@ Look for mismatches like:
 ```bash
 pnpm exec tsx fix_categories.ts
 pnpm exec tsx validate_categories.ts
-pm2 restart oskinsights
+pm2 restart supplychain-insights
 ```
 
 ### Problem: New articles not appearing
@@ -183,7 +183,7 @@ Before deploying updates:
 - [ ] All 6 categories have articles
 - [ ] Test website locally
 - [ ] Commit changes to Git
-- [ ] Restart PM2: `pm2 restart oskinsights`
+- [ ] Restart PM2: `pm2 restart supplychain-insights`
 
 ---
 
