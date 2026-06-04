@@ -8,7 +8,7 @@ The current public-domain failure is not a source-code issue. On 2026-06-04 CDT,
 
 | Area | Recommendation | Reason |
 |---|---|---|
-| Hosting | Relaunch as a Manus-hosted web app under **caoqianwudi@gmail.com**. | The domain already points to Manus infrastructure, and the old failure is tied to the sunset/expired Manus ownership rather than the IONOS domain itself. |
+| Hosting | Fresh Manus-hosted site has been published under the active workflow: `https://ocurosh-sci-2axarwst.manus.space/`. | This restores a live Manus-hosted app before custom-domain work. The current published checkpoint still requires Manus Auth and shows an in-app `Ocurosh` sidebar label that should be corrected before domain cutover. |
 | Database | Use a managed MySQL-compatible database provisioned by the new hosting environment if available; otherwise use TiDB Cloud Serverless or another managed MySQL provider. | The app uses Drizzle with MySQL and expects `DATABASE_URL`. Managed MySQL avoids running database infrastructure manually. |
 | DNS | Keep IONOS as registrar/DNS provider. Reuse `CNAME www -> ocuosh.manus.space` only if the new Manus deployment can claim the `ocuosh` subdomain/custom-domain mapping; otherwise replace it with the exact target Manus gives for the new deployment. | IONOS supports CNAME records for subdomains and Manus provides DNS records during custom-domain setup. |
 | Weekly update | Restore the Monday 5:00 AM weekly news update after production database and deployment are live. Prefer a Manus scheduled task while the workflow still requires editorial/news judgment; move to host cron only after the update script is fully deterministic. | The previous automation was agentic/editorial and the current repository entry point is `pnpm update:news`. |
@@ -61,12 +61,13 @@ For IONOS, CNAME records are configured under **Domains & SSL**, then the desire
 
 The practical relaunch sequence is therefore:
 
-1. Publish a fresh Manus-hosted deployment under **caoqianwudi@gmail.com** from the current GitHub `main` branch or from a newly generated Manus web-app checkpoint using this repository as source.
-2. Configure production environment variables and the managed MySQL `DATABASE_URL` in the new deployment.
-3. Attach `www.ocuosh.com` in the new Manus deployment settings.
-4. If Manus accepts the current `CNAME www -> ocuosh.manus.space`, leave IONOS DNS unchanged; otherwise update the IONOS `www` CNAME to the new Manus-provided target.
-5. Wait for DNS propagation and automatic SSL provisioning.
-6. Verify that `https://www.ocuosh.com` loads the supply-chain insights app rather than the expired-membership page.
+1. Completed: publish the fresh Manus-hosted deployment and verify it at `https://ocurosh-sci-2axarwst.manus.space/` after Manus Auth.
+2. Before custom-domain cutover, correct the remaining visible app label from **Ocurosh** to **Ocuosh** inside the deployed checkpoint/source and decide whether the site should remain behind Manus Auth or be publicly accessible.
+3. Configure or verify production environment variables and the managed MySQL `DATABASE_URL` in the deployment settings.
+4. Attach `www.ocuosh.com` in the new Manus deployment settings.
+5. If Manus accepts the current `CNAME www -> ocuosh.manus.space`, leave IONOS DNS unchanged; otherwise update the IONOS `www` CNAME to the new Manus-provided target.
+6. Wait for DNS propagation and automatic SSL provisioning.
+7. Verify that `https://www.ocuosh.com` loads the supply-chain insights app rather than the expired-membership page.
 
 If the apex domain `ocuosh.com` should also work, configure an HTTP redirect from `ocuosh.com` to `https://www.ocuosh.com`. IONOS supports forwarding a domain to another URL and recommends using HTTP redirect instead of frame redirect for search engines.[^ionos-forwarding]
 
@@ -90,11 +91,11 @@ The scheduled runtime must have:
 
 Because there is currently no active schedule in this project session, the weekly job should be recreated only after the new deployment and production database are live. Creating it before the database exists would produce scheduled failures.
 
-## Decision Needed Before Execution
+## Decision Needed Before Domain Cutover
 
-The next blocking action is not code; it is **Manus deployment ownership**. The domain already points to Manus, but the visible error indicates the current custom-domain binding is attached to the expired/sunset Manus account. To finish the relaunch, the active account must be able to publish or own a Manus-hosted deployment and bind `www.ocuosh.com` to it.
+The fresh Manus-hosted site is now live at `https://ocurosh-sci-2axarwst.manus.space/` and was verified after Manus Auth. The next decision is whether the production site should remain authenticated or be made publicly accessible before binding `www.ocuosh.com`.
 
-Once that deployment workspace is available, the remaining work is straightforward: configure environment variables, initialize the database, bind the custom domain, verify HTTPS, and recreate the Monday 5:00 AM schedule.
+Before custom-domain cutover, the remaining work is to correct the visible **Ocurosh** sidebar label to **Ocuosh**, verify or configure the production database and secrets, bind the custom domain in Manus, verify HTTPS, and recreate the Monday 5:00 AM schedule after the production database and Git write path are available.
 
 [^manus-custom-domain]: Manus, “Custom Domains: Professionalize Your Brand,” https://manus.im/docs/website-builder/custom-domains.
 [^ionos-cname-config]: IONOS, “Configuring a CNAME Record for a Subdomain,” https://www.ionos.com/help/domains/configuring-cname-records-for-subdomains/configuring-a-cname-record-for-a-subdomain/.

@@ -14,7 +14,7 @@ The repository has been relaunched for the active account **caoqianwudi@gmail.co
 | Local production build | Verified | `pnpm install`, `pnpm run build`, and local `pnpm start` succeeded. |
 | Local type check | Verified | `pnpm run check` succeeded. |
 | Automated tests | Partially verified | The app-level build is valid; the existing test suite contains database-dependent failures unless a reachable test database is configured. |
-| Public deployment | Pending | `www.ocuosh.com` currently resolves to Manus but shows an expired-membership page tied to the old owner; a fresh Manus-hosted deployment must be published under `caoqianwudi@gmail.com`. |
+| Public deployment | Published and verified with auth | Fresh Manus-hosted URL: `https://ocurosh-sci-2axarwst.manus.space/`. The app loads after Manus Auth under `caoqianwudi@gmail.com`; public unauthenticated access and custom-domain binding remain deferred. |
 | Current DNS | Verified | `www.ocuosh.com` is a CNAME to `ocuosh.manus.space`, with IONOS nameservers active. |
 | Weekly news job | Pending production prerequisites | The code includes `pnpm update:news`, but the production database and authenticated Git push path must be available to the scheduled runtime. |
 
@@ -82,7 +82,7 @@ A simple scheduled Manus task is suitable for a low-frequency weekly editorial w
 |---|---|---|
 | Provision production MySQL database | User/host | Pending |
 | Configure production environment variables | User/host | Pending |
-| Deploy latest `main` branch | Agent or host | Pending; recommended target is Manus-hosted deployment under `caoqianwudi@gmail.com` |
-| Configure DNS for `www.ocuosh.com` | User/domain registrar | Partially complete; IONOS already points `www` at `ocuosh.manus.space`, but the new Manus deployment must bind or replace this target |
-| Verify live site and SSL | Agent | Pending after DNS/deploy |
+| Publish fresh Manus-hosted site | Agent | Complete: `https://ocurosh-sci-2axarwst.manus.space/` was published and verified after Manus Auth. Note: the published checkpoint was the Manus task checkpoint, not a rebuild directly from the cleaned Git repository. |
+| Configure DNS for `www.ocuosh.com` | User/domain registrar | Deferred until after publication; IONOS already points `www` at `ocuosh.manus.space`, but the new Manus deployment currently uses `ocurosh-sci-2axarwst.manus.space` and must be bound to the custom domain or republished with the corrected target. |
+| Verify fresh Manus-hosted site | Agent | Complete for authenticated access; page title is **Ocuosh Supply Chain Insights**, but the in-app sidebar still shows **Ocurosh**, indicating a checkpoint/source UI label remains to be corrected. SSL is valid on the Manus-hosted URL. |
 | Restore weekly schedule | Agent | Pending after production database and Git write credentials are available to the scheduled runtime |
