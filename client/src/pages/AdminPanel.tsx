@@ -204,6 +204,27 @@ export default function AdminPanel() {
     },
   });
 
+  // Automated updates (news / indices)
+  const { data: updateHistory } = trpc.update.history.useQuery(undefined, {
+    enabled: isAuthenticated === true,
+    refetchInterval: 30000,
+  });
+  const [updateMessage, setUpdateMessage] = useState("");
+  const runNewsMutation = trpc.update.runNews.useMutation({
+    onSuccess: (r) => {
+      setUpdateMessage(`News update complete: ${r.added} added, ${r.removed} removed.`);
+      utils.update.history.invalidate();
+    },
+    onError: (e) => setUpdateMessage(`News update failed: ${e.message}`),
+  });
+  const runIndicesMutation = trpc.update.runIndices.useMutation({
+    onSuccess: (r) => {
+      setUpdateMessage(`Indices refreshed for ${r.date}. Fetched: ${r.fetched.length} series${r.missing.length ? `, missing: ${r.missing.join(", ")}` : ""}.`);
+      utils.update.history.invalidate();
+    },
+    onError: (e) => setUpdateMessage(`Indices update failed: ${e.message}`),
+  });
+
   const handleLogout = () => {
     localStorage.removeItem(ADMIN_TOKEN_KEY);
     setIsAuthenticated(false);
@@ -332,6 +353,10 @@ export default function AdminPanel() {
             <TabsTrigger value="allowlist" className="flex items-center gap-2">
               <Shield className="w-4 h-4" />
               Email Allowlist
+            </TabsTrigger>
+            <TabsTrigger value="automation" className="flex items-center gap-2">
+              <Zap className="w-4 h-4" />
+              Automation
             </TabsTrigger>
           </TabsList>
 
@@ -601,6 +626,85 @@ export default function AdminPanel() {
                 ))}
               </div>
             )}
+          </TabsContent>
+
+          {/* Automation Tab */}
+          <TabsContent value="automation">
+            <Card className="mb-6 border-violet-200 bg-violet-50/50">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base flex items-center gap-2">
+                  <Zap className="w-4 h-4" />
+                  Automated Updates
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-slate-500 mb-4">
+                  News runs automatically every Monday 06:00 UTC; indices refresh daily 07:00 UTC.
+                  Use these buttons to trigger an update now.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <Button
+                    onClick={() => { setUpdateMessage(""); runNewsMutation.mutate({ token: storedToken }); }}
+                    disabled={runNewsMutation.isPending || runIndicesMutation.isPending}
+                    className="bg-violet-600 hover:bg-violet-700 text-white"
+                  >
+                    {runNewsMutation.isPending ? (
+                      <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Updating news (1-3 min)...</>
+                    ) : (
+                      <>Run News Update</>
+                    )}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => { setUpdateMessage(""); runIndicesMutation.mutate({ token: storedToken }); }}
+                    disabled={runNewsMutation.isPending || runIndicesMutation.isPending}
+                  >
+                    {runIndicesMutation.isPending ? (
+                      <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Refreshing indices...</>
+                    ) : (
+                      <>Refresh Indices</>
+                    )}
+                  </Button>
+                </div>
+                {updateMessage && (
+                  <div className="mt-4 text-sm text-slate-700 bg-white border border-slate-200 rounded-md p-3">
+                    {updateMessage}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base flex items-center gap-2">
+                  <Clock className="w-4 h-4" />
+                  Recent Runs
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {!updateHistory || updateHistory.length === 0 ? (
+                  <p className="text-sm text-slate-500">No automated runs recorded yet.</p>
+                ) : (
+                  <div className="space-y-2">
+                    {updateHistory.map(log => (
+                      <div key={log.id} className="flex items-center gap-3 text-sm border-b border-slate-100 pb-2">
+                        <Badge className={
+                          log.status === "success"
+                            ? "bg-emerald-100 text-emerald-800 border-emerald-200"
+                            : log.status === "partial"
+                              ? "bg-amber-100 text-amber-800 border-amber-200"
+                              : "bg-red-100 text-red-800 border-red-200"
+                        }>
+                          {log.status}
+                        </Badge>
+                        <span className="font-medium text-slate-700 capitalize">{log.jobType}</span>
+                        <span className="text-slate-400">{new Date(log.createdAt).toLocaleString()}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
       </main>

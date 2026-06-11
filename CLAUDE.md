@@ -22,8 +22,19 @@ pnpm build        # Build frontend (Vite → dist/public) + backend (esbuild →
 pnpm start        # Run production build
 pnpm db:push      # Run Drizzle migrations (creates/updates DB tables)
 pnpm test         # Run Vitest tests
-pnpm update:news  # Run automated news update script
+pnpm update:news     # Run news pipeline now (RSS → DeepSeek → DB)
+pnpm update:indices  # Refresh economic indices now (FRED → DB)
+pnpm update:all      # Both
 ```
+
+## Automated Updates
+
+The server runs a built-in scheduler (`server/updaters/scheduler.ts`): news
+every Monday 06:00 UTC, indices daily 07:00 UTC, with stale catch-up on boot.
+Runs are logged to the `update_logs` table and visible in the Admin panel
+(Automation tab), which also has manual trigger buttons.
+See `docs/guides/AUTOMATED_PIPELINE_V2.md` for details. Disable via
+`AUTO_UPDATE_DISABLED=true`.
 
 ## Project Structure
 
@@ -34,8 +45,9 @@ client/src/         React SPA
   _core/hooks/      useAuth and other hooks
 server/
   _core/            Core infra: auth, LLM, tRPC setup, cookies, env
-  routers.ts        All tRPC routes (news, chat, auth, subscription, allowlist, etc.)
+  routers.ts        All tRPC routes (news, chat, auth, subscription, allowlist, update, etc.)
   db.ts             Drizzle query functions
+  updaters/         Automated news + indices pipelines and scheduler
 drizzle/            Schema and migration files
 shared/             Types and constants shared between client and server
 scripts/            Automated news update script

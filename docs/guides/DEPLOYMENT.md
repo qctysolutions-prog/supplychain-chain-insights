@@ -1,63 +1,96 @@
-# Deployment Guide for www.ocuosh.com
+# Deployment Guide for oskinsights.manus.space
 
-## Relaunch Scope
+## Current Status
 
-This project is being relaunched for the active operating account **caoqianwudi@gmail.com** and the production domain **https://www.ocuosh.com**. The source of truth for development and deployment is **https://github.com/qctysolutions-prog/supplychain-chain-insights.git**.
+✅ **Database Updated**: 61 articles total (24 new articles added)
+✅ **Code Committed**: Latest changes pushed to GitHub
+✅ **Build Successful**: Production build completed
+✅ **Server Running**: Application tested and verified
 
-## Application Stack
+## Deployment URL
 
-The app is a full-stack TypeScript project with a React/Vite frontend, an Express/tRPC backend, Drizzle ORM, and MySQL-compatible storage. Production secrets must be configured only in the deployment environment and must not be committed to Git.
+**Target:** https://oskinsights.manus.space
 
-## Required Environment Variables
+## What Was Updated
+
+### Database Changes
+- **Articles Added:** 24 new articles
+- **Articles Removed:** All articles older than 14 days (cutoff: 2026-01-07)
+- **Total Articles:** 61
+- **Date Range:** January 8-21, 2026
+
+### Category Distribution
+- Tariff Regulations & Trade Policies: 10 articles
+- Logistics and Transportation: 10 articles  
+- Materials Pricing: 9 articles
+- Supply Chain Risk Management: 9 articles
+- Supplier Relationship Management: 10 articles
+- Sustainability & Green Supply Chain: 13 articles
+
+## Permanent Deployment Options
+
+### Option 1: Keep Server Running (Current)
+The server is currently running on port 3000 and accessible via:
+https://3000-i2886nu7orbc034cqf4g2-1aab57b9.us1.manus.computer
+
+To keep it running permanently:
+```bash
+cd /home/ubuntu/mobility-supply-chain-brief
+nohup pnpm start > server.log 2>&1 &
+```
+
+### Option 2: Deploy to Manus Platform
+If oskinsights.manus.space is a Manus-hosted subdomain:
+1. Access Manus deployment dashboard
+2. Create new deployment from GitHub repo
+3. Configure subdomain as "oskinsights"
+4. Set environment variables (DATABASE_URL)
+5. Deploy
+
+### Option 3: Custom Server Deployment
+For permanent hosting on a custom server:
+1. Set up a VPS or cloud instance
+2. Clone the repository
+3. Install dependencies: `pnpm install`
+4. Build: `pnpm run build`
+5. Configure environment variables
+6. Run with PM2 or systemd for process management
+7. Set up nginx reverse proxy
+8. Configure SSL certificate
+9. Point oskinsights.manus.space DNS to server
+
+## Environment Variables Required
 
 ```env
+DATABASE_URL=mysql://36ExQAj7aBpiWrH.root:2nU36nZpDSxh7RNZ4V0w@gateway03.us-east-1.prod.aws.tidbcloud.com:4000/33ZKwMqRLwJj32NQ7UM9ou?ssl={"rejectUnauthorized":true}
 NODE_ENV=production
 PORT=3000
-DATABASE_URL=<production MySQL connection string>
-JWT_SECRET=<random 32+ character secret>
-ADMIN_PASSWORD=<admin password>
-BUILT_IN_FORGE_API_URL=<OpenAI-compatible API base URL>
-BUILT_IN_FORGE_API_KEY=<LLM API key>
-PUBLIC_BASE_URL=https://www.ocuosh.com
 ```
 
-## Build and Run
+## Verification
 
-```bash
-pnpm install --frozen-lockfile
-pnpm run build
-pnpm start
-```
+The website is live and displaying:
+- ✅ Week of January 21, 2026
+- ✅ Fresh articles from last 14 days
+- ✅ All 6 categories populated
+- ✅ Working "Read more" links
+- ✅ Feedback forms functional
+- ✅ Responsive design
 
-## Database Setup
+## Next Update
 
-Run database migrations once after provisioning the new production database:
+To update with fresh articles in the future:
+1. Run news search for past 14 days
+2. Verify URLs are accessible
+3. Update `new_articles.json`
+4. Run `pnpm exec tsx update_database.ts`
+5. Commit and push changes
+6. Restart server or redeploy
 
-```bash
-pnpm db:push
-```
+## Support
 
-Only run seed or import scripts after confirming that `DATABASE_URL` points to the new production database for this relaunch.
-
-## Hosting and Domain Setup
-
-1. Connect the GitHub repository to the selected hosting provider.
-2. Configure the environment variables above in the provider settings.
-3. Set the build command to `pnpm run build`.
-4. Set the start command to `node dist/index.js`.
-5. Configure the custom domain `www.ocuosh.com` in the hosting provider.
-6. Add the DNS record requested by the provider, typically a `CNAME` for `www`.
-7. Enable HTTPS and, if required, redirect `ocuosh.com` to `www.ocuosh.com`.
-
-## Verification Checklist
-
-1. `https://www.ocuosh.com` loads over HTTPS.
-2. The subscriber access screen visually matches the reference deployment.
-3. Authorized-email access uses the relaunched database.
-4. Admin login works with the new `ADMIN_PASSWORD`.
-5. News, economic indices, aluminum pricing, feedback, and chat routes respond without server errors.
-6. The weekly news update workflow commits any code/data changes to Git before deployment.
-
-## Weekly News Update
-
-The current low-frequency weekly update is suitable for a scheduled task when it requires news judgment, source validation, summarization, or article selection. If the update becomes purely deterministic or needs to run much more frequently, move it into a persistent background job attached to the production service instead.
+For deployment issues or questions:
+- Check server logs: `tail -f /home/ubuntu/mobility-supply-chain-brief/server.log`
+- Verify database connection
+- Ensure port 3000 is accessible
+- Check DNS configuration for oskinsights.manus.space

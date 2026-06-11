@@ -6,6 +6,22 @@ import { getAllNewsArticles, getNewsArticlesByCategory, submitCategoryFeedback, 
 import { z } from "zod";
 import { invokeLLM } from "./_core/llm";
 import { ENV } from "./_core/env";
+import { runNewsUpdate } from "./updaters/newsUpdater";
+import { runIndicesUpdate } from "./updaters/indicesUpdater";
+import { getDb } from "./db";
+import { updateLogs } from "../drizzle/schema";
+import { desc as descOrder } from "drizzle-orm";
+
+/** Validate the admin localStorage token issued by adminAuth.verify */
+function isValidAdminToken(token: string): boolean {
+  try {
+    const decoded = Buffer.from(token, "base64").toString("utf8");
+    const [prefix, , secret] = decoded.split(":");
+    return prefix === "admin" && secret === ENV.cookieSecret.slice(0, 8);
+  } catch {
+    return false;
+  }
+}
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -327,6 +343,36 @@ export const appRouter = router({
           return { valid: false };
         }
       }),
+  }),
+
+  // ─── Automated Updates (manual triggers + monitoring) ─────────────────────
+  update: router({
+    /** Admin: run the news pipeline now (RSS → DeepSeek → DB). */
+    runNews: publicProcedure
+      .input(z.object({ token: z.string() }))
+      .mutation(async ({ input }) => {
+        if (!isValidAdminToken(input.token)) throw new Error("Unauthorized");
+        return await runNewsUpdate();
+      }),
+
+    /** Admin: refresh economic indices now (FRED → DB). */
+    runIndices: publicProcedure
+      .input(z.object({ token: z.string() }))
+      .mutation(async ({ input }) => {
+        if (!isValidAdminToken(input.token)) throw new Error("Unauthorized");
+        return await runIndicesUpdate();
+      }),
+
+    /** Recent update runs (for the admin panel status view). */
+    history: publicProcedure.query(async () => {
+      const db = await getDb();
+      if (!db) return [];
+      return await db
+        .select()
+        .from(updateLogs)
+        .orderBy(descOrder(updateLogs.createdAt))
+        .limit(20);
+    }),
   }),
 
   chat: router({

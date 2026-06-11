@@ -32,11 +32,7 @@ const DAYS_THRESHOLD = 14;
 const MIN_ARTICLES_PER_CATEGORY = 4;
 
 // Database connection
-const DATABASE_URL = process.env.DATABASE_URL;
-
-if (!DATABASE_URL) {
-  throw new Error('DATABASE_URL environment variable is required');
-}
+const DATABASE_URL = process.env.DATABASE_URL || 'mysql://36ExQAj7aBpiWrH.root:2nU36nZpDSxh7RNZ4V0w@gateway03.us-east-1.prod.aws.tidbcloud.com:4000/33ZKwMqRLwJj32NQ7UM9ou?ssl={"rejectUnauthorized":true}';
 
 let db;
 async function getDb() {

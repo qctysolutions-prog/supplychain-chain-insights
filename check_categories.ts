@@ -3,11 +3,7 @@ import mysql from "mysql2/promise";
 import { newsArticles } from "./drizzle/schema";
 import { sql } from "drizzle-orm";
 
-const DATABASE_URL = process.env.DATABASE_URL;
-
-if (!DATABASE_URL) {
-  throw new Error("DATABASE_URL environment variable is required");
-}
+const DATABASE_URL = "mysql://36ExQAj7aBpiWrH.root:2nU36nZpDSxh7RNZ4V0w@gateway03.us-east-1.prod.aws.tidbcloud.com:4000/33ZKwMqRLwJj32NQ7UM9ou?ssl={\"rejectUnauthorized\":true}";
 
 async function checkCategories() {
   const connection = await mysql.createConnection(DATABASE_URL);

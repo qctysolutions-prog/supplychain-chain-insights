@@ -160,3 +160,19 @@ export const emailAllowlist = mysqlTable("email_allowlist", {
 
 export type EmailAllowlist = typeof emailAllowlist.$inferSelect;
 export type InsertEmailAllowlist = typeof emailAllowlist.$inferInsert;
+
+/**
+ * Update logs table
+ * Records every automated update run (news / indices) for monitoring and
+ * to prevent duplicate runs across server restarts.
+ */
+export const updateLogs = mysqlTable("update_logs", {
+  id: int("id").autoincrement().primaryKey(),
+  jobType: varchar("job_type", { length: 32 }).notNull(), // 'news' | 'indices'
+  status: varchar("status", { length: 16 }).notNull(), // 'success' | 'partial' | 'error'
+  detail: text("detail"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type UpdateLog = typeof updateLogs.$inferSelect;
+export type InsertUpdateLog = typeof updateLogs.$inferInsert;

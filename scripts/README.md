@@ -16,7 +16,7 @@ Main automation script that handles the complete update workflow:
 
 **Usage:**
 ```bash
-cd /home/ubuntu/supplychain-chain-insights
+cd /home/ubuntu/mobility-supply-chain-brief
 node scripts/automated-news-update.mjs
 ```
 
@@ -71,7 +71,7 @@ const MIN_ARTICLES_PER_CATEGORY = 4;    // Minimum per category
 To run the update manually (for testing or immediate updates):
 
 ```bash
-cd /home/ubuntu/supplychain-chain-insights
+cd /home/ubuntu/mobility-supply-chain-brief
 node scripts/automated-news-update.mjs
 ```
 

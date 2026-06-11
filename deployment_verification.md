@@ -2,7 +2,7 @@
 
 ## Website Status: ✅ LIVE
 
-**URL:** https://www.ocuosh.com
+**URL:** https://oskinsights.manus.space
 
 **Date Range Displayed:** Jan 27, 2026 - Feb 9, 2026 (Last 14 days)
 
@@ -75,7 +75,7 @@ The automated news update pipeline has successfully:
 3. ✅ Generated update documentation
 4. ✅ Updated CHANGELOG.md
 5. ✅ Committed changes to Git
-6. ✅ Website is live and displaying fresh content at https://www.ocuosh.com
+6. ✅ Website is live and displaying fresh content at https://oskinsights.manus.space
 
 
 ## Additional Website Verification
@@ -111,7 +111,7 @@ The automated news update pipeline has been successfully executed:
 3. ✅ **Category Balance**: 5 articles per category (exceeds minimum of 4)
 4. ✅ **Documentation Generated**: Update summary and changelog created
 5. ✅ **Git Committed**: All changes pushed to repository
-6. ✅ **Website Live**: https://www.ocuosh.com displaying fresh content
+6. ✅ **Website Live**: https://oskinsights.manus.space displaying fresh content
 7. ✅ **Verification Complete**: All features and content verified working
 
 The website is now live with fresh, relevant automotive supply chain news for the week of February 9, 2026.

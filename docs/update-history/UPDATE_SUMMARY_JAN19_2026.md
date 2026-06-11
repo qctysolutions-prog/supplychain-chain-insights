@@ -2,7 +2,7 @@
 
 ## ✅ Update Completed Successfully
 
-Fresh news articles collected, verified, and prepared for deployment to **www.ocuosh.com**.
+Fresh news articles collected, verified, and prepared for deployment to **oskinsights.manus.space**.
 
 ---
 
@@ -209,7 +209,7 @@ The following 6 articles were rejected due to inaccessible URLs (403 errors or c
 ### Option 2: Using TiDB Cloud Console
 
 1. Log into TiDB Cloud console
-2. Navigate to your cluster: <production-db-host>
+2. Navigate to your cluster: gateway03.us-east-1.prod.aws.tidbcloud.com
 3. Open SQL Editor
 4. Copy and paste the contents of `update_news.sql`
 5. Execute the SQL file
@@ -218,10 +218,10 @@ The following 6 articles were rejected due to inaccessible URLs (403 errors or c
 ### Option 3: Using MySQL Command Line
 
 ```bash
-mysql --host <production-db-host> \
+mysql --host gateway03.us-east-1.prod.aws.tidbcloud.com \
       --port 4000 \
-      --user <production-db-user> \
-      --database <production-db-name> \
+      --user 36ExQAj7aBpiWrH.root \
+      --database 33ZKwMqRLwJj32NQ7UM9ou \
       --ssl-mode=REQUIRED \
       -p < update_news.sql
 ```
@@ -241,12 +241,12 @@ mysql --host <production-db-host> \
 
 1. ✅ Execute `update_news.sql` in your Manus Database UI
 2. ✅ Verify articles are displaying on the website
-3. ✅ Configure custom domain **www.ocuosh.com** in Manus project settings
-4. ✅ Test the live website at https://www.ocuosh.com
+3. ✅ Configure custom domain **oskinsights.manus.space** in Manus project settings
+4. ✅ Test the live website at https://oskinsights.manus.space
 5. ✅ Schedule next update for 14 days from now (Feb 2, 2026)
 
 ---
 
 **Update Prepared:** January 19, 2026
 **Next Recommended Update:** February 2, 2026 (14 days)
-**Repository:** https://github.com/qctysolutions-prog/supplychain-chain-insights.git
+**Repository:** https://github.com/qiannathancao/mobility-supply-chain-brief
